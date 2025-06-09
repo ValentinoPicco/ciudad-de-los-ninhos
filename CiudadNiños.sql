@@ -33,14 +33,14 @@ CREATE TABLE MTelefono (
 
 CREATE TABLE Contacto (
 	dni INTEGER NOT NULL,
-	estado TEXT CHECK (estado IN ('activo', 'inactivo')) NOT NULL,
+	estado VARCHAR(20) NOT NULL,
 	fecha_prim_cont DATE,
 	fecha_alta DATE,
 	fecha_baja DATE,
 	fecha_adhesion DATE,
 	fecha_rechazo DATE,
 	FOREIGN KEY (dni) REFERENCES Padrino(dni)
-	ON DELETE CASCADE ON UPDATE CASCADE,
+	ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT control_alta_baja CHECK (
 		fecha_baja IS NULL OR fecha_baja >= fecha_alta
 	)
@@ -51,7 +51,7 @@ CREATE TABLE Donante (
 	ocupacion VARCHAR(50),
 	cuit_cuil VARCHAR(13) NOT NULL,	
 	FOREIGN KEY (dni) REFERENCES Padrino(dni)
-	ON DELETE CASCADE ON UPDATE CASCADE
+	ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE Programa (
