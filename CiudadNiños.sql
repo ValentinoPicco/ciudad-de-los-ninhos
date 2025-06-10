@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS Trans_Deb;
 DROP TABLE IF EXISTS Medio_Pago;
 DROP TABLE IF EXISTS Programa;
 DROP TABLE IF EXISTS Donante;
+DROP TABLE IF EXISTS Auditoria;
+DROP FUNCTION IF EXISTS funcion_auditoria;
 DROP TABLE IF EXISTS Contacto;
 DROP TABLE IF EXISTS MTelefono;
 DROP TABLE IF EXISTS Padrino;
@@ -53,6 +55,21 @@ CREATE TABLE Donante (
 	FOREIGN KEY (dni) REFERENCES Padrino(dni)
 	ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE TABLE Auditoria (
+	id_auditoria SERIAL PRIMARY KEY,
+	dni_donante INTEGER,
+	fecha_auditoria DATE
+);
+
+CREATE FUNCTION funcion_auditoria () returns trigger as 'begin insert into
+auditoria (dni_donante, fecha_auditoria) values(old.dni,now());
+return new;
+end;'
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER trigger_auditoria AFTER DELETE ON donante FOR EACH ROW
+EXECUTE PROCEDURE funcion_auditoria();
 
 CREATE TABLE Programa (
 	id_programa INTEGER PRIMARY KEY,
