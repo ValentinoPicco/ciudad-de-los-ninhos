@@ -63,7 +63,7 @@ CREATE TABLE Auditoria (
 );
 
 CREATE FUNCTION funcion_auditoria () returns trigger as 'begin insert into
-auditoria (dni_donante, fecha_auditoria) values(old.dni,now());
+ciudadninios.auditoria (dni_donante, fecha_auditoria) values(old.dni,now());
 return new;
 end;'
 LANGUAGE 'plpgsql';

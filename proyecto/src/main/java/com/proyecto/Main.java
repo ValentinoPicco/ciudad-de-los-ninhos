@@ -131,7 +131,7 @@ public class Main {
                             } catch (org.postgresql.util.PSQLException e) {
                                 System.out.println("El padrino aun se encuentra como contacto ");
                             } catch (SQLException ex) {
-                                System.out.println("Error al borrar el donante: " + ex);
+                                System.out.println("Error al borrar el padrino: " + ex);
                             }
                         }
                     } catch (SQLException e) {
